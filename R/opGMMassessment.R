@@ -168,7 +168,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
     nProc <- min(num_workers - 1, MaxModes, MaxCores)
 
     switch(FitAlg, ClusterRGMM = {
-      GMMfit <- lapply(list.of.Modes, function(x) {
+      GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(ClusterR::GMM(data = data.frame(GMMdata), gaussian_comps = list.of.Modes[x],
           dist_mode = "eucl_dist"), TRUE)
@@ -180,7 +180,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       })
     }, densityMclust = {
-      GMMfit <- parallel::mclapply(list.of.Modes, function(x) {
+      GMMfit <- parallel::mclapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(mclust::densityMclust(data = GMMdata, G = x),
           TRUE)
@@ -193,7 +193,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       }, mc.cores = nProc)
     }, DO = {
-      GMMfit <- parallel::mclapply(list.of.Modes, function(x) {
+      GMMfit <- parallel::mclapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(DistributionOptimization::DistributionOptimization(Data = GMMdata,
           Modes = list.of.Modes[x], Monitor = 0, CrossoverRate = 0.9, ErrorMethod = "chisquare",
@@ -206,7 +206,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       }, mc.cores = nProc)
     }, MCMC = {
-      GMMfit <- parallel::mclapply(list.of.Modes, function(x) {
+      GMMfit <- parallel::mclapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         Prior <- list(priorK = "fixed", Kmax = x)
         nMCMC <- c(burn = 5000, keep = 10000, thin = 5, info = 1000)
@@ -225,7 +225,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       }, mc.cores = nProc)
     }, normalmixEM = {
-      GMMfit <- parallel::mclapply(list.of.Modes, function(x) {
+      GMMfit <- parallel::mclapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(mixtools::normalmixEM(GMMdata, mu = kmeans(GMMdata,
           x)$centers, ECM = TRUE, maxrestarts = 1e+05), TRUE)
@@ -239,7 +239,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
     })
   } else {
     switch(FitAlg, ClusterRGMM = {
-      GMMfit <- lapply(list.of.Modes, function(x) {
+      GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(ClusterR::GMM(data = data.frame(GMMdata), gaussian_comps = list.of.Modes[x],
           dist_mode = "eucl_dist"), TRUE)
@@ -251,7 +251,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       })
     }, densityMclust = {
-      GMMfit <- lapply(list.of.Modes, function(x) {
+      GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(mclust::densityMclust(data = GMMdata, G = x),
           TRUE)
@@ -264,7 +264,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       })
     }, DO = {
-      GMMfit <- lapply(list.of.Modes, function(x) {
+      GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(DistributionOptimization::DistributionOptimization(Data = GMMdata,
           Modes = list.of.Modes[x], Monitor = 0, CrossoverRate = 0.9, ErrorMethod = "chisquare",
@@ -277,7 +277,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       })
     }, MCMC = {
-      GMMfit <- lapply(list.of.Modes, function(x) {
+      GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         Prior <- list(priorK = "fixed", Kmax = x)
         nMCMC <- c(burn = 5000, keep = 10000, thin = 5, info = 1000)
@@ -296,7 +296,7 @@ MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
         return(list(GMMfit_Mode, Mixtures))
       })
     }, normalmixEM = {
-      GMMfit <- lapply(list.of.Modes, function(x) {
+      GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
         set.seed(ActualSeed)
         GMMfit_Mode <- try(mixtools::normalmixEM(GMMdata, mu = kmeans(GMMdata,
                                                                       x)$centers, ECM = TRUE, maxrestarts = 1e+05), TRUE)
