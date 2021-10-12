@@ -48,7 +48,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   nProc <- min(num_workers - 1, MaxCores, MaxModes)
 
   # mclapply hack for Windows
-  mclapply.hack <- function(...) {
+  mclapply.hack <- function(mc.cores, ...) {
     size.of.list <- length(list(...)[[1]])
     cl <- makeCluster(min(size.of.list, detectCores()))
     loaded.package.names <- c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
@@ -73,9 +73,9 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   mclapply <- switch(Sys.info()[["sysname"]], Windows = {
     mclapply.hack
   }, Linux = {
-    mclapply
+    parallel::mclapply
   }, Darwin = {
-    mclapply
+    parallel::mclapply
   })
 
   DataOrigLength <- length(as.vector(Data))
