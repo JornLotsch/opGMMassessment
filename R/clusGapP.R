@@ -1,10 +1,10 @@
 # A parallel version of cluster::clusGap, modified from there
 #' @importFrom stats dist runif var
 #' @importFrom parallel detectCores mclapply
-clusGapP <- function(x, FUNcluster, K.max, B = 100, d.power = 1,
-spaceH0 = c("scaledPCA", "original"), MaxCores = 8, ...) {
-  stopifnot(is.function(FUNcluster), length(dim(x)) == 2, K.max >=
-              2, (n <- nrow(x)) >= 1, ncol(x) >= 1)
+clusGapP <- function(x, FUNcluster, K.max, B = 100, d.power = 1, spaceH0 = c("scaledPCA",
+  "original"), MaxCores = 8, ...) {
+  stopifnot(is.function(FUNcluster), length(dim(x)) == 2, K.max >= 2, (n <- nrow(x)) >=
+    1, ncol(x) >= 1)
   if (B != (B. <- as.integer(B)) || (B <- B.) <= 0)
     stop("'B' has to be a positive integer")
 
@@ -16,8 +16,7 @@ spaceH0 = c("scaledPCA", "original"), MaxCores = 8, ...) {
       num_workers <- parallel::detectCores()
     }
     nProc <- min(num_workers - 1, MaxCores)
-  } else
-    nProc <- 1
+  } else nProc <- 1
 
   cl. <- match.call()
   if (is.data.frame(x))
@@ -25,17 +24,15 @@ spaceH0 = c("scaledPCA", "original"), MaxCores = 8, ...) {
   ii <- seq_len(n)
   W.k <- function(X, kk) {
     clus <- if (kk > 1)
-      FUNcluster(X, kk)$cluster
-    else rep.int(1L, nrow(X))
+      FUNcluster(X, kk)$cluster else rep.int(1L, nrow(X))
     0.5 * sum(vapply(split(ii, clus), function(I) {
       xs <- X[I, , drop = FALSE]
-      sum(dist(xs) ^ d.power / nrow(xs))
+      sum(dist(xs)^d.power/nrow(xs))
     }, 0))
   }
   logW <- E.logW <- SE.sim <- numeric(K.max)
 
-  for (k in 1:K.max)
-    logW[k] <- log(W.k(x, k))
+  for (k in 1:K.max) logW[k] <- log(W.k(x, k))
 
   spaceH0 <- match.arg(spaceH0)
   xs <- scale(x, center = TRUE, scale = FALSE)
@@ -53,10 +50,10 @@ spaceH0 = c("scaledPCA", "original"), MaxCores = 8, ...) {
 
   if (nProc > 1) {
     BootGap <- parallel::mclapply(list.of.bootstraps, function(b) {
-      z1 <- apply(rng.x1, 2, function(M, nn) runif(nn, min = M[1],
-                                                   max = M[2]), nn = n)
-      z <- switch(spaceH0, scaledPCA = tcrossprod(z1, V.sx),
-                  original = z1) + m.x
+      z1 <- apply(rng.x1, 2, function(M, nn) runif(nn, min = M[1], max = M[2]),
+        nn = n)
+      z <- switch(spaceH0, scaledPCA = tcrossprod(z1, V.sx), original = z1) +
+        m.x
       for (k in 1:K.max) {
         logWks1[, k] <- log(W.k(z, k))
       }
@@ -64,10 +61,10 @@ spaceH0 = c("scaledPCA", "original"), MaxCores = 8, ...) {
     }, mc.cores = nProc)
   } else {
     BootGap <- lapply(list.of.bootstraps, function(b) {
-      z1 <- apply(rng.x1, 2, function(M, nn) runif(nn, min = M[1],
-                                                   max = M[2]), nn = n)
-      z <- switch(spaceH0, scaledPCA = tcrossprod(z1, V.sx),
-                  original = z1) + m.x
+      z1 <- apply(rng.x1, 2, function(M, nn) runif(nn, min = M[1], max = M[2]),
+        nn = n)
+      z <- switch(spaceH0, scaledPCA = tcrossprod(z1, V.sx), original = z1) +
+        m.x
       for (k in 1:K.max) {
         logWks1[, k] <- log(W.k(z, k))
       }
@@ -77,8 +74,7 @@ spaceH0 = c("scaledPCA", "original"), MaxCores = 8, ...) {
   logWks <- matrix(unlist(BootGap), ncol = K.max, nrow = B, byrow = T)
 
   E.logW <- colMeans(logWks)
-  SE.sim <- sqrt((1 + 1 / B) * apply(logWks, 2, var))
-  structure(class = "clusGap", list(Tab = cbind(logW, E.logW,
-  gap = E.logW - logW, SE.sim), call = cl., spaceH0 = spaceH0,
-  n = n, B = B, FUNcluster = FUNcluster))
+  SE.sim <- sqrt((1 + 1/B) * apply(logWks, 2, var))
+  structure(class = "clusGap", list(Tab = cbind(logW, E.logW, gap = E.logW - logW,
+    SE.sim), call = cl., spaceH0 = spaceH0, n = n, B = B, FUNcluster = FUNcluster))
 }

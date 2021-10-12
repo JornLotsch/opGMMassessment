@@ -15,7 +15,7 @@ CreateGMM <- function(Means, SDs, Weights, n = 1000, ExactN = FALSE) {
     warning("GMMInnerInterDistances: Weigthts changed to sum up to 1.", call. = FALSE)
   }
 
-  if(ExactN == TRUE) {
+  if (ExactN == TRUE) {
     GMMparam <- rbind(round(Weights * 2 * n), Means, SDs)
   } else {
     GMMparam <- rbind(round(Weights * n), Means, SDs)
@@ -26,10 +26,10 @@ CreateGMM <- function(Means, SDs, Weights, n = 1000, ExactN = FALSE) {
     do.call(rnorm, as.list(x))
   }))), Cls = rep(1:length(Weights), unlist(lapply(GMMparamRO, "[[", 1))))
 
-  if(ExactN == TRUE) {
+  if (ExactN == TRUE) {
     sample <- caTools::sample.split(DataDF$Cls, SplitRatio = 0.51)
     DataDF <- dplyr::sample_n(subset(DataDF, sample == TRUE), 1000)
-    #DataDF <- DataDF[order(DataDF$Data),]
+    # DataDF <- DataDF[order(DataDF$Data),]
   }
   # Return results
   return(DataDF)
