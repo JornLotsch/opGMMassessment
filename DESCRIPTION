@@ -5,8 +5,9 @@ Version: 0.1.0
 Author: Jorn Lotsch[aut,cre]
 Maintainer: Jorn Lotsch <j.lotsch@em.uni-frankfurt.de>
 Description: Optimized establishment of the number of Gaussian mixes in onedimensional data.
+Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: AdaptGauss, DataVisualizations, DistributionOptimization, cluster, mixtools, grDevices, methods, stats, utils, rlang, ggplot2, pbmcapply, parallel, caTools, dplyr, mclust, mixAK, multimode, NbClust, ClusterR
+Imports: AdaptGauss, DataVisualizations, DistributionOptimization, cluster, mixtools, grDevices, methods, foreach, stats, utils, rlang, ggplot2, parallel, caTools, dplyr, mclust, mixAK, multimode, NbClust, ClusterR, doParallel
 Depends: R (>= 3.5.0)
