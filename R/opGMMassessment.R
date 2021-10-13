@@ -14,7 +14,7 @@
 #' @importFrom DistributionOptimization DistributionOptimization
 #' @importFrom mixAK NMixMCMC
 #' @importFrom foreach foreach
-#' @importFrom doParallel registerDoParallel
+#' @importFrom doParallel registerDoParallel stopImplicitCluster
 opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 8,
   MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
 
@@ -260,6 +260,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
         return(list(GMMfit_Mode, Mixtures))
       }
     })
+    doParallel::stopImplicitCluster()
   }, {
     switch(FitAlg, ClusterRGMM = {
       GMMfit <- lapply(list.of.Modes, function(x, Mixtures = Mixtures) {
