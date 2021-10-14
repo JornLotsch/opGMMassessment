@@ -8,15 +8,13 @@ clusGapP <- function(x, FUNcluster, K.max, B = 100, d.power = 1, spaceH0 = c("sc
   if (B != (B. <- as.integer(B)) || (B <- B.) <= 0)
     stop("'B' has to be a positive integer")
 
-  if (.Platform$OS.type != "windows" & MaxCores > 1) {
-    chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-    if (nzchar(chk) && chk == "TRUE") {
-      num_workers <- 2L
-    } else {
-      num_workers <- parallel::detectCores()
-    }
-    nProc <- min(num_workers - 1, MaxCores)
-  } else nProc <- 1
+  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+  if (nzchar(chk) && chk == "TRUE") {
+    num_workers <- 2L
+  } else {
+    num_workers <- parallel::detectCores()
+  }
+  nProc <- min(num_workers - 1, MaxCores)
 
   cl. <- match.call()
   if (is.data.frame(x))
