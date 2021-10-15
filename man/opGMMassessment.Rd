@@ -6,7 +6,7 @@
 }
 \usage{
 opGMMassessment(Data, FitAlg = "MCMC", Criterion = "LR",
-MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed)
+MaxModes = 8, MaxCores = 2048, PlotIt = FALSE, KS = TRUE, Seed)
 }
 \arguments{
  \item{Data}{the data as a vector.}

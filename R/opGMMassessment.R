@@ -16,7 +16,7 @@
 #' @importFrom foreach foreach
 #' @importFrom doParallel registerDoParallel stopImplicitCluster
 opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 8,
-  MaxCores = 2048, PlotIt = FALSE, KS = FALSE, Seed) {
+  MaxCores = 2048, PlotIt = FALSE, KS = TRUE, Seed) {
 
   # Check input
   DIM <- function(...) {
