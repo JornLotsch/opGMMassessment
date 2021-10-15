@@ -46,7 +46,7 @@ clusGapP <- function(x, FUNcluster, K.max, B = 100, d.power = 1, spaceH0 = c("sc
 
   list.of.bootstraps <- 1:B
 
-  if (nProc > 1) {
+  if (nProc > 1 & !Sys.info()[["sysname"]] == "Windows") {
     BootGap <- parallel::mclapply(list.of.bootstraps, function(b) {
       z1 <- apply(rng.x1, 2, function(M, nn) runif(nn, min = M[1], max = M[2]),
         nn = n)
