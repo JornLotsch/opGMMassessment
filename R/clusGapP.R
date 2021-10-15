@@ -1,6 +1,7 @@
 # A parallel version of cluster::clusGap, modified from there
 #' @importFrom stats dist runif var
 #' @importFrom parallel detectCores mclapply
+#' @importFrom cluster maxSE
 clusGapP <- function(x, FUNcluster, K.max, B = 100, d.power = 1, spaceH0 = c("scaledPCA",
   "original"), MaxCores = 8, ...) {
   stopifnot(is.function(FUNcluster), length(dim(x)) == 2, K.max >= 2, (n <- nrow(x)) >=
