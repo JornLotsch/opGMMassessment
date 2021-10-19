@@ -2,9 +2,10 @@ Package: opGMMassessment
 Type: Package
 Title: Automated Gaussian Mixture Assessment
 Version: 0.1.0
-Author: Jorn Lotsch[aut,cre]
+Author: Jorn Lotsch [aut,cre] (<https://orcid.org/0000-0002-5818-6958>), 
+  Sebastian Malkusch [aut] (<https://orcid.org/0000-0001-6766-140X>) 
 Maintainer: Jorn Lotsch <j.lotsch@em.uni-frankfurt.de>
-Description: Optimized establishment of the number of Gaussian mixes in onedimensional data.
+Description: Optimized establishment of the number of Gaussian mixes in one-dimensional data.
 Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8

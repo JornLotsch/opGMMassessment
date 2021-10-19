@@ -48,6 +48,7 @@ opGMMassessment(Data = iris$Petal.Length,
   Criterion = "BIC",
   PlotIt = TRUE,
   MaxModes = 5,
+  MaxCores = 1,
   Seed = 42)
 }
 \keyword{opGMMassessment}
