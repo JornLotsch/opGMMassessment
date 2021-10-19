@@ -2,7 +2,8 @@
 \alias{opGMMassessment}
 \title{Gaussian mixture assessment}
 \description{
-  The function fits a Gaussian mixture and determines the number of statistically supported modes.
+  The package provides the necessary functions for optimized automated evaluation of the number and parameters of Gaussian mixtures in one-dimensional data.
+  It provides various methods for parameter estimation and for determining the number of modes in the mixture.
 }
 \usage{
 opGMMassessment(Data, FitAlg = "MCMC", Criterion = "LR",

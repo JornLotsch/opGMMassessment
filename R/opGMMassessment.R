@@ -1,5 +1,5 @@
-# Analysis of a Gaussian mixture structure in the data Statistical
-# justification with likelihood ratio tests, AIC or BIC, or GAP criterion
+# Analysis of a Gaussian mixture structure in the data. Statistical
+# justification with likelihood ratio and other tests.
 #' @importFrom ClusterR GMM
 #' @importFrom mclust densityMclust
 #' @importFrom mixtools normalmixEM
