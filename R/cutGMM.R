@@ -3,13 +3,13 @@
 cutGMM <- function(x, breaks, right = TRUE) {
   sizeX <- function(A) {
     TA <- is(A)
-    TypeOfA = TA[2]
-    Result = c(NaN, NaN)
+    TypeOfA <- TA[2]
+    Result <- c(NaN, NaN)
     if (TypeOfA == "vector") {
-      Result = c(length(A), 1)
+      Result <- c(length(A), 1)
     }
     if (TypeOfA == "array") {
-      Result = dim(A)
+      Result <- dim(A)
     }
     return(Result)
   }
@@ -18,9 +18,9 @@ cutGMM <- function(x, breaks, right = TRUE) {
     stop("CutGMM: x should be a single vector of length > 0.")
   if (length(breaks) > 0) {
     if (hasArg(right) == FALSE) {
-      right = TRUE
+      right <- TRUE
     }
-    breaks = sort(breaks)
+    breaks <- sort(breaks)
     if (right == TRUE) {
       if (length(breaks) > 1) {
         compMat <- vapply(x, function(x) x > breaks, logical(length(breaks)))
