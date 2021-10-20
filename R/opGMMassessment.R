@@ -111,7 +111,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
         return(pExM)
       }, mc.cores = nProc)
     })
-    BestGMM <- 1
+    firstBestGMM <- 1
     for (i in 2:length(ExcessMassi)) {
       if (ExcessMassi[i] < 0.05) {
         firstBestGMM <- i
@@ -119,6 +119,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
         break
       }
     }
+    BestGMM <- firstBestGMM
     return(BestGMM)
   }
 
@@ -170,7 +171,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
         return(pExM)
       }, mc.cores = nProc)
     })
-    BestGMM <- 1
+    firstBestGMM <- 1
     for (i in 2:length(ExcessMassi)) {
       if (ExcessMassi[i] < 0.05) {
         firstBestGMM <- i
@@ -178,6 +179,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
         break
       }
     }
+    BestGMM <- firstBestGMM
     return(BestGMM)
   }
 
