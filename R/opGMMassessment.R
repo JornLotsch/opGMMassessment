@@ -128,7 +128,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
         cluster.only = TRUE))
     }
     gsPam1 <- clusGapP(x = cbind(GMMdata, GMMdata), FUNcluster = pam1, K.max = MaxModes,
-      B = 60, spaceH0 = "original", MaxCores = nProc)
+      B = 60, spaceH0 = "original", nProc = nProc)
     BestGMM <- with(gsPam1, maxSE(Tab[, "gap"], Tab[, "SE.sim"], method = "globalSEmax"))
     return(BestGMM)
   }

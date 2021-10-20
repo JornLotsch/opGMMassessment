@@ -39,3 +39,4 @@ cutGMM <- function(x, breaks, right = TRUE) {
   # Return results
   return(ClassesGMM)
 }
+
