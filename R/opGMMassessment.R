@@ -32,11 +32,11 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   if (!hasArg("Data")) {
     stop("opGMMassessment: No data.")
   }
-  if (length(Data) < 2) {
-    stop("opGMMassessment: Too few data.")
-  }
   if (DIM(Data) != 1 | is.numeric(Data) == FALSE) {
     stop("opGMMassessment: Data must be a one-dimensional numerical vector.")
+  }
+  if (length(Data) < 2) {
+    stop("opGMMassessment: Too few data.")
   }
   list.of.FitAlgs <- c("ClusterRGMM", "densityMclust", "DO", "MCMC", "normalmixEM")
   if (!FitAlg %in% list.of.FitAlgs) {
@@ -46,7 +46,6 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   if (!Criterion %in% list.of.Criteria) {
     stop("opGMMassessment: Criterion not implemented. Use AIC, BIC, FM, GAP, LR, NbClust, or SI.")
   }
-
   if (hasArg("MaxModes")) {
     if (MaxModes < 1) {
       MaxModes <- 1
