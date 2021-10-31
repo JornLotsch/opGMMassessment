@@ -48,8 +48,8 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   }
   if (hasArg("MaxModes")) {
     if (MaxModes < 1) {
-      MaxModes <- 1
-      warning("opGMMassessment: MaxModes was < 1 and has been to 1.", call. = FALSE)
+      MaxModes <- 8
+      warning("opGMMassessment: MaxModes was < 1 and has been set to the default of 8.", call. = FALSE)
     }
   }
 
