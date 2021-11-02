@@ -64,7 +64,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   SDs <- as.vector(sd(GMMdata, na.rm = TRUE))
   Weights <- 1
   Mixtures1 <- cbind(Means, SDs, Weights)
-  MaxRetries <- 2
+  MaxRetries <- 3
 
   # Internal control functions
   chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
@@ -193,9 +193,9 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   # Start of GMM fit code For reasons of computing speed, three separate
   # versions are available, i.e., for Windows, Linux, and for single-core
   # processing.
-  if (var(GMMdata) > 0 & MaxModes > 1) {
+  if (var(GMMdata) > 0) {
     nProc <- min(num_workers - 1, MaxModes, MaxCores)
-    if (nProc > 1) {
+    if (nProc > 1  & MaxModes > 1) {
       switch(Sys.info()[["sysname"]], Windows = {
         requireNamespace("foreach")
         doParallel::registerDoParallel(nProc)
