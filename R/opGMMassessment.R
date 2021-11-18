@@ -1,5 +1,6 @@
 # Analysis of a Gaussian mixture structure in one-dimensional numerical data.
 # Statistical justification with likelihood ratio and other tests.
+#' @useDynLib(opGMMassessment, .registration = TRUE)
 #' @importFrom ClusterR GMM
 #' @importFrom mclust densityMclust
 #' @importFrom mixtools normalmixEM
@@ -75,7 +76,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
     ActualSeed <- tail(get(".Random.seed", envir = globalenv()), 1)
   }
 
-  # Start of GMM fit code For reasons of computing speed, three separate
+  # Start of GMM fit code. For reasons of computing speed, three separate
   # versions are available, i.e., for Windows, Linux, and for single-core
   # processing.
   if (var(GMMdata) > 0) {
