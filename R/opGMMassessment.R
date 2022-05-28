@@ -147,7 +147,7 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   if (KS == TRUE) {
     set.seed(ActualSeed)
     Pred <- CreateGMM(Means = Means, SDs = SDs, Weights = Weights, n = 1000)$Data
-    KStest <- suppressWarnings(ks.test(x = GMMdata, y = Pred))
+    KStest <- suppressWarnings(ks.test(x = GMMdata, y = Pred), classes = "warning")
   } else {
     KStest <- NA
   }
