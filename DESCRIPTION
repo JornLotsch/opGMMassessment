@@ -10,7 +10,7 @@ Author: Jorn Lotsch [aut,cre] (<https://orcid.org/0000-0002-5818-6958>),
   Mia Hubert [ctb], 
   Kurt Hornik [ctb]
 Maintainer: Jorn Lotsch <j.lotsch@em.uni-frankfurt.de>
-Description: Necessary functions for optimized automated evaluation of the number and parameters of Gaussian mixtures in one-dimensional data. Various methods are available for parameter estimation and for determining the number of modes in the mixture.
+Description: Necessary functions for optimized automated evaluation of the number and parameters of Gaussian mixtures in one-dimensional data. Various methods are available for parameter estimation and for determining the number of modes in the mixture. A detailed description of the methods ca ben found in Lotsch, J., Malkusch, S. and A. Ultsch. (2022) <doi:10.1016/j.imu.2022.101113>.
 Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
