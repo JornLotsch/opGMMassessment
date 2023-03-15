@@ -1,7 +1,7 @@
 Package: opGMMassessment
 Type: Package
 Title: Optimized Automated Gaussian Mixture Assessment
-Version: 0.3.3
+Version: 0.3.5
 Author: Jorn Lotsch [aut,cre] (<https://orcid.org/0000-0002-5818-6958>), 
   Sebastian Malkusch [aut] (<https://orcid.org/0000-0001-6766-140X>), 
   Martin Maechler [ctb], 
