@@ -14,7 +14,7 @@
 #' @importFrom doParallel registerDoParallel stopImplicitCluster
 #' @export
 opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 8,
-                            MaxCores = getOption("mc.cores", 2L), PlotIt = FALSE, KS = TRUE, Seed) {
+                            MaxCores = getOption("mc.cores", 2L), PlotIt = FALSE, KS = TRUE, Seed = "simple") {
 
   # Check data input
   DIM <- function(...) {
@@ -84,10 +84,30 @@ opGMMassessment <- function(Data, FitAlg = "MCMC", Criterion = "LR", MaxModes = 
   num_workers <- parallel::detectCores()
   nProc <- min(num_workers - 1, MaxCores)
 
-  if (!missing(Seed)) {
-    ActualSeed <- Seed
+  # Seed handling with three clear options
+  # Set the seed if provided, otherwise use the current seed
+  if (missing(Seed)) {
+    ActualSeed <- as.integer(get_seed())
   } else {
-    ActualSeed <- tail(get(".Random.seed", envir = globalenv()), 1)
+    if (is.numeric(Seed)) {
+      # Option 1: Use provided integer seed directly
+      ActualSeed <- as.integer(Seed)
+      set.seed(ActualSeed)
+    } else if (is.character(Seed)) {
+      ActualSeed <- switch(Seed,
+                           "auto" = as.integer(get_seed()), # Complex seed recovery
+                           "simple" = {
+                             # Simple reproducible seed (default)
+                             temp_seed <- sample(1:100000, 1)
+                             warning(paste0("opGMMassessment: Seed set at ", temp_seed, "."), call. = FALSE)
+                             temp_seed
+                           },
+                           stop("Invalid Seed input. Use 'auto', 'simple', or an integer.")
+      )
+    } else {
+      # Fallback for backward compatibility
+      ActualSeed <- as.integer(get_seed())
+    }
   }
 
   # Perform the GMM fit and determine the best model

@@ -1,7 +1,7 @@
 Package: opGMMassessment
 Type: Package
 Title: Optimized Automated Gaussian Mixture Assessment
-Version: 0.4.1
+Version: 0.4.5
 Authors@R: c(
     person(given = "Jorn",
            family = "Lotsch",
@@ -20,5 +20,5 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: AdaptGauss, DataVisualizations, DistributionOptimization, cluster, mixtools, grDevices, methods, foreach, stats, utils, rlang, ggplot2, parallel, caTools, dplyr, mclust, mixAK, multimode, NbClust, ClusterR, doParallel
-NeedsCompilation: no
+LinkingTo: Rcpp
+Imports: AdaptGauss, DataVisualizations, DistributionOptimization, cluster, mixtools, grDevices, methods, foreach, stats, utils, rlang, ggplot2, parallel, caTools, dplyr, mclust, mixAK, multimode, NbClust, ClusterR, doParallel, Rcpp (>= 1.0.0)

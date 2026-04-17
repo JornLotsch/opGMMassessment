@@ -7,7 +7,8 @@
 }
 \usage{
 opGMMassessment(Data, FitAlg = "MCMC", Criterion = "LR",
-MaxModes = 8, MaxCores = getOption("mc.cores", 2L), PlotIt = FALSE, KS = TRUE, Seed)
+   MaxModes = 8, MaxCores = getOption("mc.cores", 2L),
+   PlotIt = FALSE, KS = TRUE, Seed = "simple")
 }
 \arguments{
  \item{Data}{the data as a numerical vector (1D).}
@@ -22,7 +23,9 @@ MaxModes = 8, MaxCores = getOption("mc.cores", 2L), PlotIt = FALSE, KS = TRUE, S
  \item{MaxCores}{the maximum number of processor cores used under Unix.}
  \item{PlotIt}{whether to plot the fit directly (plot will be stored nevertheless).}
  \item{KS}{perform a Kolmogorow-Smirnow test of the fit versus original distribution.}
- \item{Seed}{optional seed parameter set internally.}
+ \item{Seed}{Seed value for reproducibility. Options: \code{"auto"} (complex seed recovery, slow), \code{"simple"}
+      (fast reproducible seed, default), or integer (exact control, recommended). Use integers for systematic testing with different seeds,
+      \code{"simple"} for general use, or \code{"auto"} when you need to maintain exact RNG state continuity.}
 }
 \value{
   Returns a list of Gaussian modes.
@@ -37,7 +40,6 @@ MaxModes = 8, MaxCores = getOption("mc.cores", 2L), PlotIt = FALSE, KS = TRUE, S
 \references{
  Lotsch J, Malkusch S, Ultsch A. Comparative assessment of automated algorithms for the separation of one-dimensional Gaussian mixtures.
 Informatics in Medicine Unlocked,  Volume 34, 2022, https://doi.org/10.1016/j.imu.2022.101113.
-(https://www.sciencedirect.com/science/article/pii/S2352914822002507)
 }
 \author{
   Jorn Lotsch and Sebastian Malkusch
