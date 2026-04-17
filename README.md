@@ -35,13 +35,17 @@ Gaussian mixture models are probabilistic models commonly used in biomedical res
 - Kolmogorov-Smirnov test for goodness of fit
 
 ## Installation
+### Install from CRAN
 
 ```r
-# Install from CRAN (if available)
 install.packages("opGMMassessment")
+```
 
-# Or install development version from GitHub
-# devtools::install_github("username/opGMMassessment")
+## Or install development version from GitHub
+### Newer version opGMMassessment_0.4.5
+
+```r
+devtools::install_github("username/opGMMassessment")
 ```
 
 ## Usage
